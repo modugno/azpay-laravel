@@ -1,0 +1,23 @@
+{
+    "name": "gmodugno/azpaylaravel",
+    "description": "Integração com a AZPay para Laravel",
+    "authors": [
+        {
+            "name": "Guilherme Modugno",
+            "email": "modugnoguilherme@gmail.com"
+        }
+    ],
+    "version": "1.0",
+    "type": "package",
+    "minimum-stability": "stable",
+    "license": "MIT",
+    "keywords": ["Gateway Payment", "Gateway de Pagamentos", "AzPay", "Laravel", "Gateway", "Laravel Gateway"],
+    "require": {
+        "php": ">=5.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "AzPayLaravel\\AzPay\\": "src/AzPay"
+        }
+    }
+}
