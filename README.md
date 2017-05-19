@@ -41,20 +41,92 @@ return [
 
 ## Inicializar a SDK
 ``` php 
-AZPay::init();
+$azpay = AZPay::init();
 ```
 
 ## Order
 ``` php
-
-// set
-AZPay::setConfigOrder([
-    'reference' => '123456789',
-    'totalAmount' => '1000'
+// Order
+$azpay->setOrder([
+	'reference'   => '123456789',
+	'totalAmount' => '1000'
 ]);
+```
 
-// get
-return AZPay::getConfigOrder();
+## Billing
+``` php
+// Billing
+$azpay->setBilling([
+	'customerIdentity' => '1',
+    'name'             => 'Fulano de Tal',
+    'address'          => 'Av. Federativa, 230',
+    'address2'         => '10 Andar',
+    'city'             => 'Mogi das Cruzes',
+    'state'            => 'SP',
+    'postalCode'       => '20031-170',
+    'phone'            => '21 4009-9400',
+    'email'            => 'fulanodetal@email.com'
+]);
+```
+
+## Options
+``` php
+// Options
+$azpay->setOptions([
+	'urlReturn'   => 'http://loja.exemplo.com.br',
+	'fraud'       => 'false',
+	'customField' => ''
+]);
+```
+
+## CreditCard
+``` php
+// CreditCard
+$azpay->setCardPayment([
+	'acquirer'           => AZPay::getCardOperators()['cielo']['modes']['store']['code'],
+	'method'             => '1',
+	'amount'             => '1000',
+	'currency'           => AZPay::getCurrencies('BRL'),
+	'numberOfPayments'   => '1',
+	'groupNumber'        => '0',
+	'country'            => 'BRA',
+	'flag'               => 'visa',
+	'cardHolder'         => 'José da Silva',
+	'cardNumber'         => '4012001037141112',
+	'cardSecurityCode'   => '123',
+	'cardExpirationDate' => '201805',
+	'saveCreditCard'     => 'true'
+]);
+```
+## Enviando 
+``` php
+// Try
+try {
+	
+	// venda direta
+	$azpay->sale()->execute();
+
+	$xml_request = $azpay->response();
+
+	return $xml_request;
+
+} catch (AzPayLaravel\AzPay\SDK\AZPay_Error $e) {
+
+    # HTTP 409 - AZPay Error
+    $error = $azpay->responseError();   
+
+    dd($error);
+
+} catch (AzPayLaravel\AzPay\SDK\AZPay_Curl_Exception $e) {
+    
+    # Connection Error
+    dd($e->getMessage());
+
+} catch (AzPayLaravel\AzPay\SDK\AZPay_Exception $e) {
+	
+    # General Error
+    dd($e->getMessage());
+}
 ```
 
 # License
