@@ -1,4 +1,7 @@
 <?php
+
+namespace AzPayLaravel\AzPay\SDK;
+
 /**
  * Utils Class
  *

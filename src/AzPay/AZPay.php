@@ -3,59 +3,55 @@
 namespace AzPayLaravel\AzPay;
 
 use AzPayLaravel\AzPay\SDK\AZPay_SDK;
+use AzPayLaravel\AzPay\SDK\Config;
 
-class AZPay
+class AZPay extends AZPay_SDK
 {	
-	/**
-	 * Instancia o AzPay_SDK
-	 * @var AzPayLaravel\AzPay\SDK\AZPay_SDK
-	 */
 	private $azpay;
 
-	/**
-	 * Config Order
-	 * @var Array
-	 */
-	private $config_order;
-
-	/**
-	 * Inicia o serviço da SDK da AzPay
-	 * @return self
-	 */
 	public function init()
 	{
-		$this->getInstance();
+		// inicializa a SDK
+		parent::initialize(config('azpay.merchant_id'), config('azpay.merchant_key'));
 		return $this;
 	}
 
-	/**
-	 * Instancia o AzPayLaravel\AzPay\SDK\AZPay_SDK
-	 * @return self
-	 */
-	public function getInstance()
+	public function setOrder(Array $order)
 	{
-		if (!isset($this->azpay)) {
-			$this->azpay = new AZPay_SDK(config('azpay.merchant_id'), config('azpay.merchant_key'));
-		}	
-		return $this->azpay;
+		$this->config_order = array_merge($this->config_order, $order);
+		return $this;	
 	}
 
-	/**
-	 * Set Config Order
-	 * @param Array $config
-	 */
-	public function setConfigOrder(Array $config)
+	public function setBilling(Array $billing)
 	{
-		$this->azpay->config_order = $config;
+		$this->config_billing = array_merge($this->config_billing, $billing);
 		return $this;
 	}
 
-	/**
-	 * Retorna as config_order
-	 * @return Array $config_order
-	 */
-	public function getConfigOrder()
+	public function setOptions(Array $options)
 	{
-		return $this->azpay->config_order;
+		$this->config_options = array_merge($this->config_options, $options);
+		return $this;
+	}	
+
+	public function setCardPayment(Array $cardPayment)
+	{
+		$this->config_card_payments = array_merge($this->config_card_payments, $cardPayment);
+		return $this;
 	}
-}
+
+	public function getCardOperators()
+	{
+		return Config::$CARD_OPERATORS;
+	}
+
+	public function getCurrencies($currency)
+	{
+		return Config::$CURRENCIES[$currency];
+	}
+
+	public function getAll()
+	{
+		return $this;
+	}
+}	

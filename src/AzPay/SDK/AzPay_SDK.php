@@ -290,7 +290,7 @@ class AZPay_SDK {
      * @param string $merchant_id  [Client ID]
      * @param string $merchant_key [Client Key]
      */
-    function __construct($merchant_id, $merchant_key) {
+    public function initialize($merchant_id, $merchant_key) {
 
         if (!function_exists('curl_init'))
             throw new Exception('cURL module is not available! This SDK requires cURL. See http://php.net/manual/en/book.curl.php');
@@ -309,6 +309,7 @@ class AZPay_SDK {
      * @return this
      */
     public function execute() {
+
 
         // Reset error flag
         $this->error = false;

@@ -6,6 +6,7 @@
  *
  * @author Gabriel Guerreiro <gabrielguerreiro.com>
  **/
+namespace AzPayLaravel\AzPay\SDK;
 
 class Config {
 

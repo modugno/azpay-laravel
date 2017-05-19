@@ -1,4 +1,11 @@
 <?php
+
+namespace AzPayLaravel\AzPay\SDK;
+use AzPayLaravel\AzPay\SDK\Config;
+use AzPayLaravel\AzPay\SDK\Utils;
+
+use XMLWriter;
+
 /**
  * XML Requests Class
  *
